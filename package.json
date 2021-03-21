@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "@fitbit/sdk": "~5.0.0"
+  },
+  "fitbit": {
+    "appUUID": "4a88ae56-86a7-42da-bbfb-c80f83b05dd0",
+    "appType": "app",
+    "appDisplayName": "POGO Companion",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#607d8b",
+    "requestedPermissions": [],
+    "buildTargets": [
+      "atlas",
+      "vulcan"
+    ],
+    "i18n": {
+      "en-US": {
+        "name": "POGO Companion"
+      }
+    },
+    "defaultLanguage": "en-US"
+  }
+}

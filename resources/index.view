@@ -1,0 +1,45 @@
+<svg>
+  <defs>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="import" href="/mnt/sysassets/system_widget.defs" />
+
+    <link rel="import" href="/mnt/sysassets/widgets/baseview_widget.defs" />
+    <link rel="import" href="/mnt/sysassets/widgets/scrollbar.defs" />
+    <link rel="import" href="/mnt/sysassets/widgets/tile_list_widget.defs" />
+
+    <symbol id="my-item" href="#tile-list-item" class="list-item" display="none">
+      <rect class="bg" />
+      <image id="image2" x="5%" y="0%" width="35%" height="70%" href="" />
+      <image id="image" x="32%" y="0%" width="35%" height="70%" href="" />
+      <image id="image3" x="60%" y="0%" width="35%" height="70%" href="" />
+      <textarea id="text" y="60%" width="100%"/>
+      <rect class="line" />
+      <rect id="touch" pointer-events="all" />
+    </symbol>
+  </defs>
+  <rect id="background" />
+  <use id="myList" href="#tile-list">
+    <var id="virtual" value="1" />
+    <var id="reorder-enabled" value="0"/>
+    <var id="peek-enabled" value="0"/>
+    <var id="separator-height-bottom" value="2" />
+
+    <use id="my-pool" href="#tile-list-pool">
+      <use id="my-pool[0]" href="#my-item" />
+      <use id="my-pool[1]" href="#my-item" />
+      <use id="my-pool[2]" href="#my-item" />
+      <use id="my-pool[3]" href="#my-item" />
+      <use id="my-pool[4]" href="#my-item" />
+      <use id="my-pool[5]" href="#my-item" />
+      <use id="my-pool[6]" href="#my-item" />
+      <use id="my-pool[7]" href="#my-item" />
+      <use id="my-pool[8]" href="#my-item" />
+      <use id="my-pool[9]" href="#my-item" />
+      <use id="my-pool[10]" href="#my-item" />
+      <use id="my-pool[11]" href="#my-item" />
+      <use id="my-pool[12]" href="#my-item" />
+      <use id="my-pool[13]" href="#my-item" />
+      <use id="my-pool[14]" href="#my-item" />
+    </use>
+  </use>
+</svg>
