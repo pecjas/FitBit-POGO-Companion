@@ -8,6 +8,8 @@ let dataToSend =
   newValue: []
 };
 
+let lastImageSent = "";
+
 export function tsrSettingHandler(data)
 {
   // Log debug info
@@ -77,6 +79,9 @@ function evaluatePkmnTask(pkmnTask)
     pkmnImageUrl = pkmnImageElement.src;
     pkmnImageName = pkmnImageUrl.split("/").pop(); // Name is last piece of url
     transferFile(pkmnImageUrl, pkmnImageName); // Send file to device
+    
+    // Track last image sent
+    lastImageSent = pkmnImageName;
 
     taskDetails.rewards.push({
       "img": pkmnImageName,
@@ -115,9 +120,14 @@ function sendFinalNotification()
   if (peerSocket.readyState === peerSocket.OPEN)
   {
     peerSocket.send({
-      key: "TSRTask_NewFile",
-      newValue: "true"
+      key: "TSRTask_LastFile",
+      newValue: lastImageSent
     });
+
+    // peerSocket.send({
+    //   key: "TSRTask_NewFile",
+    //   newValue: "true"
+    // });
   }
 }
 

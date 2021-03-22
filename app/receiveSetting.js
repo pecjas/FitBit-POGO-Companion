@@ -1,5 +1,6 @@
 import document from "document";
 import { readFileSync, existsSync, unlinkSync, writeFileSync } from "fs";
+import { addListenerForFile } from "./transferFile";
 
 export function handleSettingEvent(evt)
 {
@@ -46,6 +47,19 @@ function updateBackground(evt)
     // Set updated data
     let newData = currentData.concat( evt.data.newValue );
     writeFileSync("TSRTaskData.txt", newData, "json");
+  }
+
+  if (evt.data.key === "TSRTask_LastFile" && evt.data.newValue)
+  {
+    let mockEvt =
+    {
+      data:
+      {
+        key: "TSRTask_NewFile",
+        newValue: "true"
+      }
+    };
+    addListenerForFile( evt.data.newValue, handleSettingEvent, mockEvt );
   }
   
   //if (evt.data.key === "TSRTaskList" && evt.data.newValue)
