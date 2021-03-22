@@ -69,7 +69,7 @@ function evaluatePkmnTask(pkmnTask)
     return;
   }
   
-  var pkmnImageElement, pkmnImageUrl, pkmnImageName;
+  var pkmnImageElement, pkmnImageUrl, pkmnImageName, rewardDetails;
   for ( var i = 0; i < pkmnElements.length; i++ )
   {
     pkmnImageElement = pkmnElements[i].querySelector("img");
@@ -78,7 +78,10 @@ function evaluatePkmnTask(pkmnTask)
     pkmnImageName = pkmnImageUrl.split("/").pop(); // Name is last piece of url
     transferFile(pkmnImageUrl, pkmnImageName); // Send file to device
 
-    taskDetails.rewards.push(pkmnImageName);
+    taskDetails.rewards.push({
+      "img": pkmnImageName,
+      "isShiny": pkmnElements[i].classList.contains("shinyAvailable")
+    });
   }
   
   dataToSend.newValue = taskDetails;

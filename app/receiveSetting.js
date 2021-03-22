@@ -85,7 +85,7 @@ function populateTaskListElement(taskList)
     
     configureTile: (tile, info) =>
     {
-      console.log(`Item: ${info.index}`)
+      console.log(`Item: ${info.index}`);
       if (info.type == "my-pool")
       {
         tile.getElementById("text").text = `${info.value}`;
@@ -114,13 +114,46 @@ function setTileImages(tile, info)
   {
     case 3:
       var image3 = tile.getElementById("image3");
-      image3.href = `/private/data/${info.rewards[2]}`;
+      image3.href = `/private/data/${info.rewards[2].img}`;
+
+      // Add shiny icon if available
+      var image3Shiny = tile.getElementById("image3-shiny");
+      if ( info.rewards[2].isShiny )
+      {
+        image3Shiny.href = "shiny-icon.png";
+      }
+      else
+      {
+        image3Shiny.href = "";
+      }
     case 2:
       var image2 = tile.getElementById("image2");
-      image2.href = `/private/data/${info.rewards[1]}`;
+      image2.href = `/private/data/${info.rewards[1].img}`;
+      
+      // Add shiny icon if available
+      var image2Shiny = tile.getElementById("image2-shiny");
+      if ( info.rewards[1].isShiny )
+      {
+        image2Shiny.href = "shiny-icon.png";
+      }
+      else
+      {
+        image2Shiny.href = "";
+      }
     case 1:
       var image = tile.getElementById("image");
-      image.href = `/private/data/${info.rewards[0]}`;
+      image.href = `/private/data/${info.rewards[0].img}`;
+
+      // Add shiny icon if available
+      var imageShiny = tile.getElementById("image-shiny");
+      if ( info.rewards[0].isShiny )
+      {
+        imageShiny.href = "shiny-icon.png";
+      }
+      else
+      {
+        imageShiny.href = "";
+      }
       break
     
     // No images - use missingNo resouce
