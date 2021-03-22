@@ -110,14 +110,22 @@ function setTileImages(tile, info)
   if (imgCount > 3) imgCount = 3; // Max of 3 displayed per tile currently
   
   // Assign image pointers
+  var image3 = tile.getElementById("image3");
+  var image3Shiny = tile.getElementById("image3-shiny");
+
+  var image2 = tile.getElementById("image2");
+  var image2Shiny = tile.getElementById("image2-shiny");
+
+  var image = tile.getElementById("image");
+  var imageShiny = tile.getElementById("image-shiny");
+
   switch( imgCount )
   {
     case 3:
-      var image3 = tile.getElementById("image3");
+      
       image3.href = `/private/data/${info.rewards[2].img}`;
 
       // Add shiny icon if available
-      var image3Shiny = tile.getElementById("image3-shiny");
       if ( info.rewards[2].isShiny )
       {
         image3Shiny.href = "shiny-icon.png";
@@ -127,11 +135,9 @@ function setTileImages(tile, info)
         image3Shiny.href = "";
       }
     case 2:
-      var image2 = tile.getElementById("image2");
       image2.href = `/private/data/${info.rewards[1].img}`;
       
       // Add shiny icon if available
-      var image2Shiny = tile.getElementById("image2-shiny");
       if ( info.rewards[1].isShiny )
       {
         image2Shiny.href = "shiny-icon.png";
@@ -141,11 +147,9 @@ function setTileImages(tile, info)
         image2Shiny.href = "";
       }
     case 1:
-      var image = tile.getElementById("image");
       image.href = `/private/data/${info.rewards[0].img}`;
 
       // Add shiny icon if available
-      var imageShiny = tile.getElementById("image-shiny");
       if ( info.rewards[0].isShiny )
       {
         imageShiny.href = "shiny-icon.png";
@@ -154,7 +158,19 @@ function setTileImages(tile, info)
       {
         imageShiny.href = "";
       }
-      break
+
+      // Clear previous images if we're no longer displaying them
+      if ( imgCount < 3 )
+      {
+        image3.href = "";
+        image3Shiny.href = "";
+      }
+      if ( imgCount < 2 )
+      {
+        image2.href = "";
+        image2Shiny.href = "";
+      }
+      break;
     
     // No images - use missingNo resouce
     case 0:
