@@ -1,6 +1,6 @@
 import { inbox } from "file-transfer";
-import { existsSync } from "fs";
-import { handleSettingEvent } from "./receiveSetting";
+import { handleSettingEvent } from "./receiveSetting"; // TODO - Is there a way to pass this function in without requiring this import?
+import { existsSync, listDirSync, unlinkSync } from "fs";
 
 export function initFT()
 {
@@ -50,4 +50,23 @@ export function addListenerForFile(fileName, functionToExecute, paramToInclude)
 
   // Add listener
   inbox.addEventListener("newfile", fileListener);
+}
+
+export function deleteUnusedFiles(usedFiles)
+{
+  // TODO - Review why some files are deleted multiple times?
+  console.log("[deleteUnusedFiles] Initiated.");
+  if ( usedFiles && Array.isArray(usedFiles) )
+  {
+    var appFileDirectory = listDirSync("/private/data");
+    var dirIterator, fileName;
+    while ( (dirIterator = appFileDirectory.next()) && !dirIterator.done )
+    {
+      fileName = dirIterator.value;
+      if ( usedFiles.indexOf(fileName) > -1 ) continue;
+      // Not indicated as used file - delete it
+      console.log(`[deleteUnusedFiles] Removing file: ${fileName}`);
+      unlinkSync( fileName );
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import document from "document";
 import { readFileSync, existsSync, unlinkSync, writeFileSync } from "fs";
-import { addListenerForFile } from "./transferFile";
+import { addListenerForFile, deleteUnusedFiles } from "./transferFile";
 
 export function handleSettingEvent(evt)
 {
@@ -59,6 +59,7 @@ function updateBackground(evt)
         newValue: "true"
       }
     };
+    // TODO - Extend to not just listen for last file
     addListenerForFile( evt.data.newValue, handleSettingEvent, mockEvt );
   }
   
@@ -72,6 +73,32 @@ function updateBackground(evt)
       if (taskList && taskList.length > 0)
       {
         populateTaskListElement(taskList);
+        
+        // Identify all used files in private data storage
+        var usedFiles = taskList.reduce((allResults, taskDetails) =>
+        {
+          if ( taskDetails.hasOwnProperty("rewards") && Array.isArray(taskDetails.rewards) )
+          {
+            // Get array of reward images for current task
+            var rewardImages = taskDetails.rewards.map((rewardDetails) =>
+            {
+              if ( rewardDetails.img )
+              {
+                return rewardDetails.img;
+              }
+            });
+
+            // Add all reward images to result array
+            allResults = allResults.concat(rewardImages);
+          }
+          
+          return allResults;
+        },
+        []);
+        
+        // Remove any files not currently used
+        usedFiles.push("TSRTaskData.txt");
+        deleteUnusedFiles(usedFiles);
       }
     }
   }
