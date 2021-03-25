@@ -8,7 +8,9 @@
     "appDisplayName": "POGO Companion",
     "iconFile": "resources/icon.png",
     "wipeColor": "#607d8b",
-    "requestedPermissions": [],
+    "requestedPermissions": [
+      "access_internet"
+    ],
     "buildTargets": [
       "atlas",
       "vulcan"

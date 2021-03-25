@@ -1,4 +1,5 @@
 import { peerSocket } from "messaging";
+import { me as companion } from "companion";
 import * as fs from "fs";
 import { transferFile } from "./transferWebFile";
 
@@ -16,7 +17,14 @@ export function tsrSettingHandler(data)
   console.log("TSR Setting Handler initiated");
   console.log("Max message size: " + peerSocket.MAX_MESSAGE_SIZE);
   
-  getCurrentTasks();
+  if ( companion.permissions.granted("access_internet") )
+  {
+    getCurrentTasks();
+  }
+  else
+  {
+    console.log("[tsrSettingHandler] Unable to downloaded latest data without internet permissions.");
+  }
 }
 
 function getCurrentTasks()
@@ -81,10 +89,10 @@ function evaluatePkmnTask(pkmnTask)
     transferFile(pkmnImageUrl, pkmnImageName); // Send file to device
     
     // Track last image sent
-    lastImageSent = pkmnImageName;
+    lastImageSent = `${pkmnImageName}.txi`;
 
     taskDetails.rewards.push({
-      "img": pkmnImageName,
+      "img": `${pkmnImageName}.txi`,
       "isShiny": pkmnElements[i].classList.contains("shinyAvailable")
     });
   }
